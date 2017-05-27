@@ -22,7 +22,7 @@ import (
 	"fmt"
 	"math/rand"
 	"time"
-	//"encoding/json"
+	"encoding/json"
 
 
 	"github.com/hyperledger/fabric/core/chaincode/shim"
@@ -169,31 +169,31 @@ func (t *MetaTagger) Query(stub shim.ChaincodeStubInterface, function string, ar
 	if err != nil {
 		return nil, fmt.Errorf("get Rows failed. %s", err)
 	}
-	var  valueTest  string= ""
+
 	var rows []shim.Row
 	for {
 		select {
 		case row, ok := <-rowChannel:
 			if !ok {
-				valueTest = valueTest+"A"
+
 				rowChannel = nil
 			} else {
 				rows = append(rows, row)
-				valueTest = valueTest+"B"
+
 			}
 		}
 		if rowChannel == nil {
-			valueTest = valueTest+"C"
+
 			break
 		}
 	}
-/*
+
 	jsonRows, err := json.Marshal(rows)
 	if err != nil {
 		return nil, fmt.Errorf("getRowsTableFour operation failed. Error marshaling JSON: %s", err)
 	}
-*/
-	return []byte(valueTest), nil
+
+	return []byte(jsonRows), nil
 }
 
 func main() {
