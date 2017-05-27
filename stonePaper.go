@@ -158,18 +158,21 @@ func (t *MetaTagger) Query(stub shim.ChaincodeStubInterface, function string, ar
 	if err != nil {
 		return nil, fmt.Errorf("get Rows failed. %s", err)
 	}
-
+	var string valueTest = ""
 	var rows []shim.Row
 	for {
 		select {
 		case row, ok := <-rowChannel:
 			if !ok {
+				valueTest = valueTest+"A"
 				rowChannel = nil
 			} else {
 				rows = append(rows, row)
+				valueTest = valueTest+"B"
 			}
 		}
 		if rowChannel == nil {
+			valueTest+"C"
 			break
 		}
 	}
@@ -179,7 +182,7 @@ func (t *MetaTagger) Query(stub shim.ChaincodeStubInterface, function string, ar
 		return nil, fmt.Errorf("getRowsTableFour operation failed. Error marshaling JSON: %s", err)
 	}
 
-	return []byte(jsonRows), nil
+	return []byte(valueTest), nil
 }
 
 func main() {
