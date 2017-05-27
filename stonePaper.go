@@ -47,9 +47,9 @@ func (t *MetaTagger) Init(stub shim.ChaincodeStubInterface, function string, arg
 	}
 	// Create ownership table
 	err := stub.CreateTable("MetaTable", []*shim.ColumnDefinition{
-		&shim.ColumnDefinition{Name: "Index", Type: shim.ColumnDefinition_STRING, Key: true},
-		&shim.ColumnDefinition{Name: "Doc", Type: shim.ColumnDefinition_STRING, Key: true},
+		//&shim.ColumnDefinition{Name: "Index", Type: shim.ColumnDefinition_STRING, Key: true},
 		&shim.ColumnDefinition{Name: "Tag", Type: shim.ColumnDefinition_STRING, Key: true},
+		&shim.ColumnDefinition{Name: "Doc", Type: shim.ColumnDefinition_STRING, Key: true},
 		&shim.ColumnDefinition{Name: "Note", Type: shim.ColumnDefinition_STRING, Key: false},
 	})
 	if err != nil {
@@ -58,10 +58,10 @@ func (t *MetaTagger) Init(stub shim.ChaincodeStubInterface, function string, arg
 
 	ok, err := stub.InsertRow("MetaTable", shim.Row{
 		Columns: []*shim.Column{
+			//&shim.Column{Value: &shim.Column_String_{String_: "A"}},
 			&shim.Column{Value: &shim.Column_String_{String_: "A"}},
 			&shim.Column{Value: &shim.Column_String_{String_: "B"}},
-			&shim.Column{Value: &shim.Column_String_{String_: "C"}},
-			&shim.Column{Value: &shim.Column_String_{String_: "D"}}},
+			&shim.Column{Value: &shim.Column_String_{String_: "C"}}},
 	})
 	if (ok){
 		fmt.Printf("Data Entered")
@@ -98,7 +98,7 @@ func (t *MetaTagger) create(stub shim.ChaincodeStubInterface, args []string) ([]
 		return nil, errors.New("Incorrect number of arguments. Expecting 3")
 	}
 
-	index := RandStringRunes(32)
+	//index := RandStringRunes(32)
 	doc := args[0]
 	tag := args[1]
 	note := args[2]
@@ -106,9 +106,9 @@ func (t *MetaTagger) create(stub shim.ChaincodeStubInterface, args []string) ([]
 
 	ok, err := stub.InsertRow("MetaTable", shim.Row{
 		Columns: []*shim.Column{
-			&shim.Column{Value: &shim.Column_String_{String_: index}},
-			&shim.Column{Value: &shim.Column_String_{String_: doc}},
+			//&shim.Column{Value: &shim.Column_String_{String_: index}},
 			&shim.Column{Value: &shim.Column_String_{String_: tag}},
+			&shim.Column{Value: &shim.Column_String_{String_: doc}},
 			&shim.Column{Value: &shim.Column_String_{String_: note}}},
 	})
 
