@@ -56,6 +56,17 @@ func (t *MetaTagger) Init(stub shim.ChaincodeStubInterface, function string, arg
 		return nil, errors.New("Failed creating MetaTable table.")
 	}
 
+	ok, err := stub.InsertRow("MetaTable", shim.Row{
+		Columns: []*shim.Column{
+			&shim.Column{Value: &shim.Column_String_{String_: "A"}},
+			&shim.Column{Value: &shim.Column_String_{String_: "B"}},
+			&shim.Column{Value: &shim.Column_String_{String_: "C"}},
+			&shim.Column{Value: &shim.Column_String_{String_: "D"}}},
+	})
+	if (ok){
+		fmt.Printf("Data Entered")
+	}
+
 	fmt.Printf("Init Chaincode...done")
 
 	return nil, nil
